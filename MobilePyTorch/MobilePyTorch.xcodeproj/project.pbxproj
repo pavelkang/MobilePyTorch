@@ -1,0 +1,553 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AD9C31F1E9EC76800F75718 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9C31E1E9EC76800F75718 /* main.m */; };
+		2AD9C3221E9EC76800F75718 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9C3211E9EC76800F75718 /* AppDelegate.m */; };
+		2AD9C3251E9EC76800F75718 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9C3241E9EC76800F75718 /* ViewController.mm */; };
+		2AD9C3281E9EC76800F75718 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9C3261E9EC76800F75718 /* Main.storyboard */; };
+		2AD9C32A1E9EC76800F75718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9C3291E9EC76800F75718 /* Assets.xcassets */; };
+		2AD9C32D1E9EC76800F75718 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9C32B1E9EC76800F75718 /* LaunchScreen.storyboard */; };
+		2AD9C3381E9EC76800F75718 /* MobilePyTorchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9C3371E9EC76800F75718 /* MobilePyTorchTests.m */; };
+		2AD9C3431E9EC76800F75718 /* MobilePyTorchUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9C3421E9EC76800F75718 /* MobilePyTorchUITests.m */; };
+		2AD9C3521E9EC8D600F75718 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD9C3511E9EC8D600F75718 /* Accelerate.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2AD9C3341E9EC76800F75718 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AD9C3121E9EC76800F75718 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AD9C3191E9EC76800F75718;
+			remoteInfo = MobilePyTorch;
+		};
+		2AD9C33F1E9EC76800F75718 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AD9C3121E9EC76800F75718 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AD9C3191E9EC76800F75718;
+			remoteInfo = MobilePyTorch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2AD9C31A1E9EC76800F75718 /* MobilePyTorch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobilePyTorch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD9C31E1E9EC76800F75718 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2AD9C3201E9EC76800F75718 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2AD9C3211E9EC76800F75718 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2AD9C3231E9EC76800F75718 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2AD9C3241E9EC76800F75718 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		2AD9C3271E9EC76800F75718 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2AD9C3291E9EC76800F75718 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2AD9C32C1E9EC76800F75718 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2AD9C32E1E9EC76800F75718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AD9C3331E9EC76800F75718 /* MobilePyTorchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobilePyTorchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD9C3371E9EC76800F75718 /* MobilePyTorchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobilePyTorchTests.m; sourceTree = "<group>"; };
+		2AD9C3391E9EC76800F75718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AD9C33E1E9EC76800F75718 /* MobilePyTorchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobilePyTorchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD9C3421E9EC76800F75718 /* MobilePyTorchUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobilePyTorchUITests.m; sourceTree = "<group>"; };
+		2AD9C3441E9EC76800F75718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AD9C3511E9EC8D600F75718 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD9C3171E9EC76800F75718 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD9C3521E9EC8D600F75718 /* Accelerate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD9C3301E9EC76800F75718 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD9C33B1E9EC76800F75718 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2AD9C3111E9EC76700F75718 = {
+			isa = PBXGroup;
+			children = (
+				2AD9C31C1E9EC76800F75718 /* MobilePyTorch */,
+				2AD9C3361E9EC76800F75718 /* MobilePyTorchTests */,
+				2AD9C3411E9EC76800F75718 /* MobilePyTorchUITests */,
+				2AD9C31B1E9EC76800F75718 /* Products */,
+				2AD9C3501E9EC8D600F75718 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2AD9C31B1E9EC76800F75718 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD9C31A1E9EC76800F75718 /* MobilePyTorch.app */,
+				2AD9C3331E9EC76800F75718 /* MobilePyTorchTests.xctest */,
+				2AD9C33E1E9EC76800F75718 /* MobilePyTorchUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD9C31C1E9EC76800F75718 /* MobilePyTorch */ = {
+			isa = PBXGroup;
+			children = (
+				2AD9C3201E9EC76800F75718 /* AppDelegate.h */,
+				2AD9C3211E9EC76800F75718 /* AppDelegate.m */,
+				2AD9C3231E9EC76800F75718 /* ViewController.h */,
+				2AD9C3241E9EC76800F75718 /* ViewController.mm */,
+				2AD9C3261E9EC76800F75718 /* Main.storyboard */,
+				2AD9C3291E9EC76800F75718 /* Assets.xcassets */,
+				2AD9C32B1E9EC76800F75718 /* LaunchScreen.storyboard */,
+				2AD9C32E1E9EC76800F75718 /* Info.plist */,
+				2AD9C31D1E9EC76800F75718 /* Supporting Files */,
+			);
+			path = MobilePyTorch;
+			sourceTree = "<group>";
+		};
+		2AD9C31D1E9EC76800F75718 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD9C31E1E9EC76800F75718 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2AD9C3361E9EC76800F75718 /* MobilePyTorchTests */ = {
+			isa = PBXGroup;
+			children = (
+				2AD9C3371E9EC76800F75718 /* MobilePyTorchTests.m */,
+				2AD9C3391E9EC76800F75718 /* Info.plist */,
+			);
+			path = MobilePyTorchTests;
+			sourceTree = "<group>";
+		};
+		2AD9C3411E9EC76800F75718 /* MobilePyTorchUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2AD9C3421E9EC76800F75718 /* MobilePyTorchUITests.m */,
+				2AD9C3441E9EC76800F75718 /* Info.plist */,
+			);
+			path = MobilePyTorchUITests;
+			sourceTree = "<group>";
+		};
+		2AD9C3501E9EC8D600F75718 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD9C3511E9EC8D600F75718 /* Accelerate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AD9C3191E9EC76800F75718 /* MobilePyTorch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD9C3471E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorch" */;
+			buildPhases = (
+				2AD9C3161E9EC76800F75718 /* Sources */,
+				2AD9C3171E9EC76800F75718 /* Frameworks */,
+				2AD9C3181E9EC76800F75718 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MobilePyTorch;
+			productName = MobilePyTorch;
+			productReference = 2AD9C31A1E9EC76800F75718 /* MobilePyTorch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2AD9C3321E9EC76800F75718 /* MobilePyTorchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD9C34A1E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorchTests" */;
+			buildPhases = (
+				2AD9C32F1E9EC76800F75718 /* Sources */,
+				2AD9C3301E9EC76800F75718 /* Frameworks */,
+				2AD9C3311E9EC76800F75718 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AD9C3351E9EC76800F75718 /* PBXTargetDependency */,
+			);
+			name = MobilePyTorchTests;
+			productName = MobilePyTorchTests;
+			productReference = 2AD9C3331E9EC76800F75718 /* MobilePyTorchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2AD9C33D1E9EC76800F75718 /* MobilePyTorchUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD9C34D1E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorchUITests" */;
+			buildPhases = (
+				2AD9C33A1E9EC76800F75718 /* Sources */,
+				2AD9C33B1E9EC76800F75718 /* Frameworks */,
+				2AD9C33C1E9EC76800F75718 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AD9C3401E9EC76800F75718 /* PBXTargetDependency */,
+			);
+			name = MobilePyTorchUITests;
+			productName = MobilePyTorchUITests;
+			productReference = 2AD9C33E1E9EC76800F75718 /* MobilePyTorchUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2AD9C3121E9EC76800F75718 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Kai Kang";
+				TargetAttributes = {
+					2AD9C3191E9EC76800F75718 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = TYS32Z4DEC;
+						ProvisioningStyle = Automatic;
+					};
+					2AD9C3321E9EC76800F75718 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = TYS32Z4DEC;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2AD9C3191E9EC76800F75718;
+					};
+					2AD9C33D1E9EC76800F75718 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = TYS32Z4DEC;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2AD9C3191E9EC76800F75718;
+					};
+				};
+			};
+			buildConfigurationList = 2AD9C3151E9EC76800F75718 /* Build configuration list for PBXProject "MobilePyTorch" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2AD9C3111E9EC76700F75718;
+			productRefGroup = 2AD9C31B1E9EC76800F75718 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AD9C3191E9EC76800F75718 /* MobilePyTorch */,
+				2AD9C3321E9EC76800F75718 /* MobilePyTorchTests */,
+				2AD9C33D1E9EC76800F75718 /* MobilePyTorchUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2AD9C3181E9EC76800F75718 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD9C32D1E9EC76800F75718 /* LaunchScreen.storyboard in Resources */,
+				2AD9C32A1E9EC76800F75718 /* Assets.xcassets in Resources */,
+				2AD9C3281E9EC76800F75718 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD9C3311E9EC76800F75718 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD9C33C1E9EC76800F75718 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD9C3161E9EC76800F75718 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD9C3251E9EC76800F75718 /* ViewController.mm in Sources */,
+				2AD9C3221E9EC76800F75718 /* AppDelegate.m in Sources */,
+				2AD9C31F1E9EC76800F75718 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD9C32F1E9EC76800F75718 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD9C3381E9EC76800F75718 /* MobilePyTorchTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD9C33A1E9EC76800F75718 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD9C3431E9EC76800F75718 /* MobilePyTorchUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2AD9C3351E9EC76800F75718 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2AD9C3191E9EC76800F75718 /* MobilePyTorch */;
+			targetProxy = 2AD9C3341E9EC76800F75718 /* PBXContainerItemProxy */;
+		};
+		2AD9C3401E9EC76800F75718 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2AD9C3191E9EC76800F75718 /* MobilePyTorch */;
+			targetProxy = 2AD9C33F1E9EC76800F75718 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2AD9C3261E9EC76800F75718 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2AD9C3271E9EC76800F75718 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2AD9C32B1E9EC76800F75718 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2AD9C32C1E9EC76800F75718 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2AD9C3451E9EC76800F75718 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2AD9C3461E9EC76800F75718 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2AD9C3481E9EC76800F75718 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = TYS32Z4DEC;
+				INFOPLIST_FILE = MobilePyTorch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kk.MobilePyTorch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2AD9C3491E9EC76800F75718 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = TYS32Z4DEC;
+				INFOPLIST_FILE = MobilePyTorch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kk.MobilePyTorch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2AD9C34B1E9EC76800F75718 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = TYS32Z4DEC;
+				INFOPLIST_FILE = MobilePyTorchTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kk.MobilePyTorchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobilePyTorch.app/MobilePyTorch";
+			};
+			name = Debug;
+		};
+		2AD9C34C1E9EC76800F75718 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = TYS32Z4DEC;
+				INFOPLIST_FILE = MobilePyTorchTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kk.MobilePyTorchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobilePyTorch.app/MobilePyTorch";
+			};
+			name = Release;
+		};
+		2AD9C34E1E9EC76800F75718 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = TYS32Z4DEC;
+				INFOPLIST_FILE = MobilePyTorchUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kk.MobilePyTorchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MobilePyTorch;
+			};
+			name = Debug;
+		};
+		2AD9C34F1E9EC76800F75718 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = TYS32Z4DEC;
+				INFOPLIST_FILE = MobilePyTorchUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kk.MobilePyTorchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MobilePyTorch;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AD9C3151E9EC76800F75718 /* Build configuration list for PBXProject "MobilePyTorch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD9C3451E9EC76800F75718 /* Debug */,
+				2AD9C3461E9EC76800F75718 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AD9C3471E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD9C3481E9EC76800F75718 /* Debug */,
+				2AD9C3491E9EC76800F75718 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2AD9C34A1E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD9C34B1E9EC76800F75718 /* Debug */,
+				2AD9C34C1E9EC76800F75718 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2AD9C34D1E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorchUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD9C34E1E9EC76800F75718 /* Debug */,
+				2AD9C34F1E9EC76800F75718 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2AD9C3121E9EC76800F75718 /* Project object */;
+}
