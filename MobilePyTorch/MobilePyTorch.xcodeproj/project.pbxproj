@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A40928A1E9EE76B0021EB83 /* BNNSNetBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNNSNetBuilder.h; sourceTree = "<group>"; };
 		2AD9C31A1E9EC76800F75718 /* MobilePyTorch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobilePyTorch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD9C31E1E9EC76800F75718 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2AD9C3201E9EC76800F75718 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 				2AD9C3231E9EC76800F75718 /* ViewController.h */,
 				2AD9C3241E9EC76800F75718 /* ViewController.mm */,
 				2AD9C3261E9EC76800F75718 /* Main.storyboard */,
+				2A40928A1E9EE76B0021EB83 /* BNNSNetBuilder.h */,
 				2AD9C3291E9EC76800F75718 /* Assets.xcassets */,
 				2AD9C32B1E9EC76800F75718 /* LaunchScreen.storyboard */,
 				2AD9C32E1E9EC76800F75718 /* Info.plist */,
@@ -530,6 +532,7 @@
 				2AD9C3491E9EC76800F75718 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AD9C34A1E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorchTests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +541,7 @@
 				2AD9C34C1E9EC76800F75718 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AD9C34D1E9EC76800F75718 /* Build configuration list for PBXNativeTarget "MobilePyTorchUITests" */ = {
 			isa = XCConfigurationList;
@@ -546,6 +550,7 @@
 				2AD9C34F1E9EC76800F75718 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
