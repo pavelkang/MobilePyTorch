@@ -2,7 +2,7 @@ import torch
 
 def main():
     #TODO: use argparse
-    path = "../pretrained_models/mnist_pytorch.pth"
+    path = "../pretrained_models/mnist.pth"
     model = torch.load(path)
     for child in model.children():
         print child
