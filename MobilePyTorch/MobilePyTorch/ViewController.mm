@@ -335,7 +335,7 @@ size_t eye_predict() {
                ->Linear(256, 7, "model-W_nn1-256x7", "model-b_nn1-7", none)
                ->softmax()->build();
 
-    lefteye_net->inspect();
+    //lefteye_net->inspect();
     
     Float32 *output = (Float32 *) lefteye_net->apply(input);
     for (int i = 0; i < 7; i++) {

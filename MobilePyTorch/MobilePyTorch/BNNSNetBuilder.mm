@@ -3,6 +3,10 @@
 
 using namespace std;
 
+/*
+    These functions help print information about each layer
+ */
+
 string shape2str(BNNSShape shape) {
     return "<" + to_string(shape.width) + ", " + to_string(shape.height) + ", " + to_string(shape.channels) + ">";
 }
@@ -86,6 +90,11 @@ void print_desc(BNNSImageStackDescriptor desc) {
 }
 
 BNNSFilter MaxPool2dLayerConfiguration::build() {
+    
+    if ((_inputShape.width % 2 != 0) || (_inputShape.height % 2 != 0)) {
+        cout << "BNNS MaxPool2d layer is not compatible with tensorflow pooling layer. Tensorflow pads only what is necessary, but BNNS pads equally on both left and right. Your max pool layer is of odd dimension. Use at your own risk!" << endl;
+    }
+    
     BNNSImageStackDescriptor i_desc = {
         .width = _inputShape.width,
         .height = _inputShape.height,
@@ -106,8 +115,8 @@ BNNSFilter MaxPool2dLayerConfiguration::build() {
     BNNSPoolingLayerParameters layer_params = {
         .x_stride = _stride,
         .y_stride = _stride,
-        .x_padding = 0,
-        .y_padding = 0,
+        .x_padding = _inputShape.width % 2 == 0 ? 0 : _padding,
+        .y_padding = _inputShape.height % 2 == 0 ? 0 : _padding,
         .k_width = _kernel_size,
         .k_height = _kernel_size,
         .in_channels = i_desc.channels,
@@ -121,23 +130,20 @@ BNNSFilter MaxPool2dLayerConfiguration::build() {
 }
 
 BNNSFilter Conv2dLayerConfiguration::build() {
-    int k = 0;
   BNNSImageStackDescriptor i_desc = {
     .width = _inputShape.width,
     .height = _inputShape.height,
     .channels = _inputShape.channels,
-    .row_stride = _inputShape.width + k*_padding_x,
-    .image_stride = (_inputShape.width + k*_padding_x)
-    * (_inputShape.height + _padding_y*k),
+    .row_stride = _inputShape.width,
+    .image_stride = _inputShape.width * _inputShape.height,
     .data_type = _data_type,
   };
-    int l = 0;
   BNNSImageStackDescriptor o_desc = {
     .width = _outputShape.width,
     .height = _outputShape.height,
     .channels = _outputShape.channels,
-    .row_stride = (_outputShape.width + _padding_x*l),
-    .image_stride = (_outputShape.width + _padding_x*l) * (_outputShape.height + _padding_y*l),
+    .row_stride = _outputShape.width,
+    .image_stride = _outputShape.width * _outputShape.height,
     .data_type = _data_type,
   };
   BNNSConvolutionLayerParameters layer_params = {
@@ -196,13 +202,7 @@ void *BNNSNetBuilder::load_data(string data_path, size_t expected_size) {
         return NULL;
     }
     Float32 *ws = (Float32 *)calloc(weights.length / 4, sizeof(float));
-    
     memcpy(ws, weights.bytes, weights.length);
-    cout << data_path << ": " << ws << endl;
-    for (int i = 0; i < 5; i++) {
-        cout << ws[i] << endl;
-    }
-    cout << "---data---" << endl;
     return (void *)ws;
 }
 
@@ -304,7 +304,6 @@ void BNNSNetBuilder::build() {
   for (int i = 0; i < _configurations.size(); ++i) {
     _filters.push_back(_configurations[i]->build());
   }
-    cout << "hello" << endl;
 }
 
 void *BNNSNetBuilder::apply(void *in) {
@@ -317,20 +316,11 @@ void *BNNSNetBuilder::apply(void *in) {
         out = (void *)calloc(config->_out_img_stride * config->_outputShape.channels,
                              sizeof(_type));
         Float32 *inf = (Float32 *) in;
-        cout << "in: " << endl;
-        for (int i = 0; i < 5; i++) {
-            cout << inf[i] << endl;
-        }
         int res = BNNSFilterApply(_filters[i], in, out);
         if (res != 0) {
             cout << "Failure!" << endl;
         }
         Float32 *outf = (Float32 *) out;
-        cout << "out: " << endl;
-        for (int i = 0; i < 5; i++) {
-            std::cout << outf[i] << std::endl;
-        }
-        cout << "---" << endl;
     }
     if (!_softmax) {
         return out;
