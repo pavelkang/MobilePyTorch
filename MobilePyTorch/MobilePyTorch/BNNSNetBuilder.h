@@ -93,12 +93,14 @@ public:
                                 size_t stride) : LayerConfiguration(input_shape, output_shape, data_type) {
         _kernel_size = kernel_size;
         _stride = stride;
+        _padding = _kernel_size / 2;
     };
     BNNSFilter build() override;
     string toStr() override;
 private:
     size_t _kernel_size;
     size_t _stride;
+    size_t _padding;
 };
 
 class Conv2dLayerConfiguration : public LayerConfiguration
@@ -164,15 +166,17 @@ public:
     string bias_data_path,
     Activ_Enum activation
     );
+    BNNSNetBuilder *softmax();
   void build();
   void *apply(void *in);
     void inspect();
 private:
   vector<BNNSFilter> _filters;
   vector<LayerConfiguration *> _configurations;
-  void *load_data(string data_path);
+  void *load_data(string data_path, size_t expected_size);
   BNNSDataType _type;
   BNNSShape _finalShape;
+    bool _softmax;
 };
 
 #endif

@@ -21,6 +21,30 @@ string LinearLayerConfiguration::toStr() {
     return "Linear: \n  IN: " + shape2str(_inputShape) + "\n  OUT: " + shape2str(_outputShape);
 }
 
+/**
+ @brief Calculates the output dimension of a convolution layer
+ The formula comes from http://cs231n.github.io/convolutional-networks/
+ 
+ @param W input size
+ @param F kernel size
+ @param P amount of zero padding
+ @param S stride
+ @return output size of a conv layer
+ */
+static size_t calcConvLayerOutputSize(size_t W, size_t F, size_t P, size_t S) {
+    size_t _numerator = W - F + 2 * P;
+    assert(_numerator % S == 0);
+    return _numerator / S + 1;
+}
+
+static size_t calcPoolingLayerOutputSize(size_t W, size_t F, size_t S, size_t P) {
+    if (W % 2 == 0) {
+        return W / 2;
+    } else {
+        return (W + 1) / 2;
+    }
+}
+
 BNNSFilter LinearLayerConfiguration::build() {
     BNNSVectorDescriptor i_desc = {
         .size = _inputShape.width,
@@ -57,6 +81,10 @@ BNNSFilter LinearLayerConfiguration::build() {
     return BNNSFilterCreateFullyConnectedLayer(&i_desc, &o_desc, &layer_params, &filter_params);
 }
 
+void print_desc(BNNSImageStackDescriptor desc) {
+    cout << desc.width << ", " << desc.height << ", " << desc.channels << ", " << desc.row_stride << ", " << desc.image_stride << endl;
+}
+
 BNNSFilter MaxPool2dLayerConfiguration::build() {
     BNNSImageStackDescriptor i_desc = {
         .width = _inputShape.width,
@@ -66,6 +94,7 @@ BNNSFilter MaxPool2dLayerConfiguration::build() {
         .image_stride = _inputShape.width * _inputShape.height,
         .data_type = _data_type,
     };
+    
     BNNSImageStackDescriptor o_desc = {
         .width = _outputShape.width,
         .height = _outputShape.height,
@@ -86,50 +115,54 @@ BNNSFilter MaxPool2dLayerConfiguration::build() {
         .pooling_function = BNNSPoolingFunctionMax,
     };
     BNNSFilterParameters filter_params = {};
-    _out_img_stride = o_desc.image_stride;
+    _out_img_stride = o_desc.image_stride;    
+    
     return BNNSFilterCreatePoolingLayer(&i_desc, &o_desc, &layer_params, &filter_params);
 }
 
 BNNSFilter Conv2dLayerConfiguration::build() {
+    int k = 0;
   BNNSImageStackDescriptor i_desc = {
     .width = _inputShape.width,
     .height = _inputShape.height,
     .channels = _inputShape.channels,
-    .row_stride = _inputShape.width + _padding_x,
-    .image_stride = (_inputShape.width + _padding_x)
-    * (_inputShape.height + _padding_y),
+    .row_stride = _inputShape.width + k*_padding_x,
+    .image_stride = (_inputShape.width + k*_padding_x)
+    * (_inputShape.height + _padding_y*k),
     .data_type = _data_type,
   };
+    int l = 0;
   BNNSImageStackDescriptor o_desc = {
     .width = _outputShape.width,
     .height = _outputShape.height,
     .channels = _outputShape.channels,
-    .row_stride = _outputShape.width,
-    .image_stride = _outputShape.width * _outputShape.height,
+    .row_stride = (_outputShape.width + _padding_x*l),
+    .image_stride = (_outputShape.width + _padding_x*l) * (_outputShape.height + _padding_y*l),
     .data_type = _data_type,
   };
   BNNSConvolutionLayerParameters layer_params = {
-    .k_width = _kernel_width,
-    .k_height = _kernel_height,
-    .in_channels = _inputShape.channels,
-    .out_channels = _outputShape.channels,
-    .x_stride = _stride_x,
-    .y_stride = _stride_y,
-    .x_padding = _padding_x,
-    .y_padding = _padding_y,
-    .activation = _activation,
+      .k_width = _kernel_width,
+      .k_height = _kernel_height,
+      .in_channels = _inputShape.channels,
+      .out_channels = _outputShape.channels,
+      .x_stride = _stride_x,
+      .y_stride = _stride_y,
+      .x_padding = _padding_x,
+      .y_padding = _padding_y,
+      .activation = _activation,
+      .weights.data = _weights,
+      .bias.data = _biases,
+      .weights.data_type = _data_type,
+      .bias.data_type = _data_type,
   };
   BNNSFilterParameters filter_params = {};
   _out_img_stride = o_desc.image_stride;
     assert(_weights != NULL);
     assert(_biases != NULL);
-  layer_params.weights.data = _weights;
-  layer_params.bias.data = _biases;
-  layer_params.weights.data_type = _data_type;
-  layer_params.bias.data_type = _data_type;
-  return BNNSFilterCreateConvolutionLayer(&i_desc, &o_desc,
-                                          &layer_params,
-                                          &filter_params);
+    BNNSFilter filter = BNNSFilterCreateConvolutionLayer(&i_desc, &o_desc,
+                                                        &layer_params,
+                                                        &filter_params);
+    return filter;
 }
 
 BNNSNetBuilder::BNNSNetBuilder(size_t width, size_t height, size_t channels) {
@@ -139,6 +172,7 @@ BNNSNetBuilder::BNNSNetBuilder(size_t width, size_t height, size_t channels) {
     .channels = channels,
   };
   _type = BNNSDataTypeFloat32;
+    _softmax = false;
 }
 
 BNNSNetBuilder::BNNSNetBuilder(size_t width, size_t height, size_t channels,
@@ -149,36 +183,29 @@ BNNSNetBuilder::BNNSNetBuilder(size_t width, size_t height, size_t channels,
     .channels = channels,
   };
   _type = type;
+    _softmax = false;
 }
 
-void *BNNSNetBuilder::load_data(string data_path) {
+void *BNNSNetBuilder::load_data(string data_path, size_t expected_size) {
     NSString* path = [NSString stringWithUTF8String:data_path.c_str()];
     NSString *filepath = [[NSBundle mainBundle] pathForResource:path ofType:@""];
     NSData *weights = [NSData dataWithContentsOfFile:filepath];
+    
+    if (weights.length / sizeof(Float32) != expected_size) {
+        cout << "expected size: " << expected_size << ", but got " << weights.length / sizeof(Float32) << endl;
+        return NULL;
+    }
     Float32 *ws = (Float32 *)calloc(weights.length / 4, sizeof(float));
-    memcpy(ws, weights.bytes, weights.length / 4);
+    
+    memcpy(ws, weights.bytes, weights.length);
+    cout << data_path << ": " << ws << endl;
+    for (int i = 0; i < 5; i++) {
+        cout << ws[i] << endl;
+    }
+    cout << "---data---" << endl;
     return (void *)ws;
 }
 
-/**
- @brief Calculates the output dimension of a convolution layer
- The formula comes from http://cs231n.github.io/convolutional-networks/
- 
- @param W input size
- @param F kernel size
- @param P amount of zero padding
- @param S stride
- @return output size of a conv layer
- */
-static size_t calcConvLayerOutputSize(size_t W, size_t F, size_t P, size_t S) {
-    size_t _numerator = W - F + 2 * P;
-    assert(_numerator % S == 0);
-    return _numerator / S + 1;
-}
-
-static size_t calcPoolingLayerOutputSize(size_t W, size_t F, size_t S) {
-    return (size_t) (floor( (W - F) / S ) + 1);
-}
 
 BNNSNetBuilder *BNNSNetBuilder::MaxPool2d(
     size_t kernel_size,
@@ -191,8 +218,8 @@ BNNSNetBuilder *BNNSNetBuilder::MaxPool2d(
     
     BNNSShape outputShape = {
         .width = calcPoolingLayerOutputSize(inputShape.width,
-                                            kernel_size, stride),
-        .height = calcPoolingLayerOutputSize(inputShape.height, kernel_size, stride),
+                                            kernel_size, stride, kernel_size / 2),
+        .height = calcPoolingLayerOutputSize(inputShape.height, kernel_size, stride, kernel_size / 2),
         .channels = _finalShape.channels,
     };
     MaxPool2dLayerConfiguration *config = new MaxPool2dLayerConfiguration(inputShape, outputShape, _type,
@@ -209,8 +236,8 @@ BNNSNetBuilder *BNNSNetBuilder::Linear(
                        string bias_data_path,
                        Activ_Enum activation
                                        ) {
-    void *weights = load_data(weights_data_path);
-    void *biases = load_data(bias_data_path);
+    void *weights = load_data(weights_data_path, in_features * out_features);
+    void *biases = load_data(bias_data_path, out_features);
     LinearLayerConfiguration *config = new LinearLayerConfiguration(in_features, out_features, _type,
                                                                     activation, weights, biases);
     _configurations.push_back(config);
@@ -220,6 +247,11 @@ BNNSNetBuilder *BNNSNetBuilder::Linear(
         .channels = 1,
     };
     _finalShape = outputShape;
+    return this;
+}
+
+BNNSNetBuilder *BNNSNetBuilder::softmax() {
+    _softmax = true;
     return this;
 }
 
@@ -236,8 +268,10 @@ BNNSNetBuilder *BNNSNetBuilder::conv2d(
 
   assert(_finalShape.channels == in_channels);
 
-  void *weights = load_data(weights_data_path);
-  void *biases = load_data(bias_data_path);
+    size_t expected_weight_size = in_channels * kernel_size * kernel_size * out_channels;
+    
+  void *weights = load_data(weights_data_path, expected_weight_size);
+  void *biases = load_data(bias_data_path, out_channels);
 
   BNNSShape inputShape = {
     .width = _finalShape.width,
@@ -247,9 +281,9 @@ BNNSNetBuilder *BNNSNetBuilder::conv2d(
 
   BNNSShape outputShape = {
     .width = calcConvLayerOutputSize(inputShape.width,
-                                     kernel_size, padding, stride),
+                                     kernel_size, kernel_size/2, stride),
     .height = calcConvLayerOutputSize(inputShape.height,
-                                      kernel_size, padding, stride),
+                                      kernel_size, kernel_size/2, stride),
     .channels = out_channels,
   };
 
@@ -259,7 +293,7 @@ BNNSNetBuilder *BNNSNetBuilder::conv2d(
     stride, stride,
     weights, biases,
     activation,
-    padding, padding
+    kernel_size/2, kernel_size/2
     );
   _configurations.push_back(config);
   _finalShape = outputShape;
@@ -270,26 +304,73 @@ void BNNSNetBuilder::build() {
   for (int i = 0; i < _configurations.size(); ++i) {
     _filters.push_back(_configurations[i]->build());
   }
+    cout << "hello" << endl;
 }
 
 void *BNNSNetBuilder::apply(void *in) {
-  void *out = in;
-  for (int i = 0; i < _configurations.size(); ++i) {
-    in = out;
-    LayerConfiguration *config = _configurations[i];
-    out = (void *)calloc(config->_out_img_stride * config->_outputShape.channels,
-                         sizeof(_type));
-    BNNSFilterApply(_filters[i], in, out);
-  }
-  return out;
+    assert (_configurations.size() == _filters.size());
+    void *out = in;
+    
+    for (int i = 0; i < _filters.size(); ++i) {
+        in = out;
+        LayerConfiguration *config = _configurations[i];
+        out = (void *)calloc(config->_out_img_stride * config->_outputShape.channels,
+                             sizeof(_type));
+        Float32 *inf = (Float32 *) in;
+        cout << "in: " << endl;
+        for (int i = 0; i < 5; i++) {
+            cout << inf[i] << endl;
+        }
+        int res = BNNSFilterApply(_filters[i], in, out);
+        if (res != 0) {
+            cout << "Failure!" << endl;
+        }
+        Float32 *outf = (Float32 *) out;
+        cout << "out: " << endl;
+        for (int i = 0; i < 5; i++) {
+            std::cout << outf[i] << std::endl;
+        }
+        cout << "---" << endl;
+    }
+    if (!_softmax) {
+        return out;
+    }
+    std::cout << "Calculating softmax" << std::endl;
+    Float32 *outf = (Float32 *)out;
+    
+    // Calculate Softmax
+    // find max
+    Float32 maxval = outf[0];
+    for (int i = 1; i < _finalShape.width; ++i) {
+        if (outf[i] > maxval) {
+            maxval = outf[i];
+        }
+    }
+    // subtract
+    for (int i = 0; i < _finalShape.width; ++i) {
+        outf[i] = outf[i] - maxval;
+    }
+    // sum
+    Float32 denom = 0.0;
+    for (int i = 0; i < _finalShape.width; ++i) {
+        denom += exp(outf[i]);
+    }
+    assert(denom != 0);
+    for (int i = 0; i < _finalShape.width; ++i) {
+        outf[i] = exp(outf[i]) / denom;
+    }
+    return (void *)outf;
 }
 
 void BNNSNetBuilder::inspect() {
     for (int i = 0; i < _configurations.size(); ++i) {
         LayerConfiguration *config = _configurations[i];
         cout << config->toStr() << endl;
-        
         BNNSFilter filter = _filters[i];
-        cout << filter << endl;
+        assert(filter != NULL);
+    }
+    assert(_configurations[_configurations.size() - 1]->_out_img_stride == _finalShape.width * _finalShape.height);
+    if (_softmax) {
+        std::cout << "softmax vector of length " << _configurations[_configurations.size() - 1]->_out_img_stride << std::endl;
     }
 }
