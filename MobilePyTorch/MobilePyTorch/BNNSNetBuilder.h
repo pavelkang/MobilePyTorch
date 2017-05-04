@@ -177,6 +177,7 @@ private:
   BNNSDataType _type;
   BNNSShape _finalShape;
     bool _softmax;
+    vector<void *> _partial_results;
 };
 
 #endif

@@ -301,20 +301,23 @@ BNNSNetBuilder *BNNSNetBuilder::conv2d(
 }
 
 void BNNSNetBuilder::build() {
-  for (int i = 0; i < _configurations.size(); ++i) {
-    _filters.push_back(_configurations[i]->build());
-  }
+    for (int i = 0; i < _configurations.size(); ++i) {
+        _filters.push_back(_configurations[i]->build());
+        LayerConfiguration *config = _configurations[i];
+        void *out = (void *)calloc(config->_out_img_stride * config->_outputShape.channels,
+                             sizeof(_type));
+        _partial_results.push_back(out);
+    }
 }
 
 void *BNNSNetBuilder::apply(void *in) {
     assert (_configurations.size() == _filters.size());
+    
     void *out = in;
     
     for (int i = 0; i < _filters.size(); ++i) {
         in = out;
-        LayerConfiguration *config = _configurations[i];
-        out = (void *)calloc(config->_out_img_stride * config->_outputShape.channels,
-                             sizeof(_type));
+        out = _partial_results[i];
         Float32 *inf = (Float32 *) in;
         int res = BNNSFilterApply(_filters[i], in, out);
         if (res != 0) {
@@ -325,7 +328,6 @@ void *BNNSNetBuilder::apply(void *in) {
     if (!_softmax) {
         return out;
     }
-    std::cout << "Calculating softmax" << std::endl;
     Float32 *outf = (Float32 *)out;
     
     // Calculate Softmax
